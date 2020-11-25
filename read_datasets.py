@@ -23,8 +23,8 @@ def preprocess_vowel(data):
 
 
 def read_vowel_fold(i):
-    train_data, train_meta = arff.loadarff('./datasets/vowel/vowel.fold.00000'+i+'train.arff')
-    test_data, test_meta = arff.loadarff('./datasets/vowel/vowel.fold.00000'+i+'test.arff')
+    train_data, train_meta = arff.loadarff('./datasets/vowel/vowel.fold.00000'+str(i)+'.train.arff')
+    test_data, test_meta = arff.loadarff('./datasets/vowel/vowel.fold.00000'+str(i)+'.test.arff')
     vowel_train = preprocess_vowel(train_data)
     vowel_test = preprocess_vowel(test_data)
     return vowel_train, vowel_test
@@ -51,8 +51,9 @@ def preprocess_adult(data):
 
 
 def read_adult_fold(i):
-    train_data, train_meta = arff.loadarff('./datasets/adult/adult.fold.00000'+i+'train.arff')
-    test_data, test_meta = arff.loadarff('./datasets/adult/adult.fold.00000'+i+'test.arff')
+    train_data, train_meta = arff.loadarff('./datasets/adult/adult.fold.00000'+str(i)+'.train.arff')
+    test_data, test_meta = arff.loadarff('./datasets/adult/adult.fold.00000'+str(i)+'.test.arff')
     adult_train = preprocess_adult(train_data)
     adult_test = preprocess_adult(test_data)
     return adult_train, adult_test
+
