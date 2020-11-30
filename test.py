@@ -1,3 +1,3 @@
 from classify import *
 
-classify('adult')
+classify('vowel', k=5, show=False)
