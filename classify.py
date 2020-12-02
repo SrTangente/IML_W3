@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score
 from visualize import visualize
 
 
-def classify(dataset, k=5, show=False):
+def classify(dataset, k=5, show=False, reduction_alg=None):
     """
     Execute a 10-fold kNN.
     :param dataset: either "adult" or "vowel"
@@ -16,6 +16,8 @@ def classify(dataset, k=5, show=False):
     read = read_vowel_fold if dataset == 'vowel' else read_adult_fold
     for i in range(10):
         x_train, y_train, x_test, y_test = read(i)
+        if reduction_alg:
+            x_train, y_train = reduction_alg(x_train, y_train, k)
         # Call here the KNN
         knn = KNeighborsClassifier(n_neighbors=k)
         knn.fit(x_train, y_train)
