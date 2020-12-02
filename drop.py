@@ -9,6 +9,7 @@ def drop2(x_train, y_train, k):
     for p in x_train:
         associates[p] = set([])
 
+    # Computing the distance to the nearest enemy
     def nearest_enemy_distance(point):
         point_y = point[-1]
         point_x = point[:-1]
@@ -23,6 +24,7 @@ def drop2(x_train, y_train, k):
 
     knn = KNeighborsClassifier(k + 1)
     knn.fit(subset[:, :-1], subset[:, -1])
+    # building the list of nearest neighbors and associates
     for x in subset:
         distances, n_index = knn.kneighbors(x, k + 1)
         neighbors = [subset[i] for i in n_index]
@@ -30,30 +32,42 @@ def drop2(x_train, y_train, k):
             associates[n].add(x)
             associates[x].add(n)
     nearests = associates.copy()
+    nearests_temp = nearests.copy()
 
     for p in subset:
         with_ = 0
         without_ = 0
+        # compute instances well predicted with P
         for a in associates[p]:
-            pred = knn.predict(a[:-1])
+            # we already calculated k+1 neighbors before, so we can speed up the prediction prunning the examples
+            y_near = [n[-1] for n in nearests[a]]
+            pred = np.bincount(y_near).argmax()
             if pred == a[-1]:
                 with_ += 1
 
+        # compute instances correctly classified without p
+        # first we remove p from the subset
         subset_without_p = np.delete(subset, np.where(subset == p))
         knn_without_p = KNeighborsClassifier(k + 1)
         knn_without_p.fit(subset_without_p[:, :-1], subset_without_p[:, -1])
         for a in associates[p]:
-            pred = knn_without_p.predict(a[:-1])
+            # the for each associate we get the k+1 NN
+            distances, n_index = knn_without_p.kneighbors(a, k + 1)
+            # those are stored in nearest_temp dictionary
+            nearests_temp[a] = set([subset[i] for i in n_index])
+            # now we check if the prediction is correct
+            y_near_temp = [n[-1] for n in nearests_temp[a]]
+            pred = np.bincount(y_near_temp).argmax()
             if pred == a[-1]:
                 without_ += 1
 
         if without_ >= with_:
-            subset = subset_without_p
-            knn = knn_without_p
+            # p is removed from subset
+            subset = subset_without_p.copy()
+            # nearests are updated
+            nearests = nearests_temp.copy()
             for a in associates[p]:
-                nearests[a].remove(p)
-                distances, n_index = knn.kneighbors(a[:-1], k + 1)
-                nearests[a] = set([subset[i] for i in n_index])
+                # new points are added to associates without deleting anything
                 [associates[a].add(nn) for nn in nearests[a]]
 
     return subset
