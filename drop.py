@@ -19,10 +19,11 @@ def drop2(x_train, y_train, k):
         distinct_y = y_train[np.where(y_train != point_y)]
         knn = KNeighborsClassifier(1)
         knn.fit(distinct_x, distinct_y)
-        distance, index = knn.kneighbors(point_x, 1)
-        return distance
+        distance, index = knn.kneighbors([point_x], 1)
+        return distance[0][0]
 
-    #subset = sorted(subset, key=nearest_enemy_distance, reverse=True)
+    subset = sorted(subset, key=lambda point: nearest_enemy_distance(point), reverse=True)
+    subset = np.array(subset)
 
     knn = KNeighborsClassifier(k + 1)
     knn.fit(x_train, y_train)
@@ -67,12 +68,12 @@ def drop2(x_train, y_train, k):
             if pred == a[-1]:
                 without_ += 1
 
+        associates_temp = []
         if without_ >= with_:
             # p is removed from subset
             subset = subset_without_p.copy()
             # nearests are updated
             nearests = nearests_temp.copy()
-            associates_temp = []
             for a_i in associates[p_i]:
                 # new points are added to associates without deleting anything
                 [associates_temp.append([a_i, nn]) for nn in nearests[a_i]]
