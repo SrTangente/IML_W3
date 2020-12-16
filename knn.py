@@ -1,7 +1,7 @@
 from sklearn.feature_selection import mutual_info_classif,chi2
 import numpy as np
 import time
-from skrebate import ReliefF
+
 
 def knn(x_train,y_train, x_test,y_test, k, r, w, v):
     start = time.time()
