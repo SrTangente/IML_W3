@@ -88,11 +88,12 @@ def drop3(x_train, y_train, k):
     knn.fit(x_train, y_train)
     filtered_x = []
     filtered_y = []
+    # remove the points that are not correctly classified
     for i in range(len(x_train)):
         x_i = x_train[i]
         y_i = y_train[i]
         if knn.predict(x_i) == y_i:
             filtered_x.append(x_i)
             filtered_y.append(y_i)
-
+    # apply drop2
     return drop2(filtered_x, filtered_y, k)
