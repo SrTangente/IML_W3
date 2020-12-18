@@ -29,11 +29,36 @@ def preprocess_vowel(train_data, test_data):
     vowel_df = vowel_df.to_numpy()
     return vowel_df[:n], y_train, vowel_df[n:], y_test
 
-
 def read_vowel_fold(i):
     train_data, train_meta = arff.loadarff('./datasets/vowel/vowel.fold.00000'+str(i)+'.train.arff')
     test_data, test_meta = arff.loadarff('./datasets/vowel/vowel.fold.00000'+str(i)+'.test.arff')
     return preprocess_vowel(train_data, test_data)
+
+
+def preprocess_satimage(train_data, test_data):
+    train_df = pd.DataFrame(train_data)
+    test_df = pd.DataFrame(test_data)
+    n = len(train_df)
+    satimage_df = pd.concat([train_df, test_df])
+    # Encode classes to numbers
+    enc = LabelEncoder()
+    satimage_df["clase"] = enc.fit_transform(satimage_df["clase"]).astype(float)
+    # Save and remove label target
+    y_train = satimage_df["clase"][:n].to_numpy()
+    y_test = satimage_df["clase"][n:].to_numpy()
+    satimage_df.drop("clase", axis=1)
+    # Normalize the data
+    scaler = preprocessing.MinMaxScaler()
+    vowel_df_scaled = scaler.fit_transform(satimage_df.values)
+    vowel_df = pd.DataFrame(vowel_df_scaled)
+    vowel_df = satimage_df.to_numpy()
+    return vowel_df[:n], y_train, vowel_df[n:], y_test
+
+
+def read_satimage_fold(i):
+    train_data, train_meta = arff.loadarff('./datasets/satimage/satimage.fold.00000'+str(i)+'.train.arff')
+    test_data, test_meta = arff.loadarff('./datasets/satimage/satimage.fold.00000'+str(i)+'.test.arff')
+    return preprocess_satimage(train_data, test_data)
 
 
 def preprocess_adult(train_data, test_data):
