@@ -13,7 +13,7 @@ def classify(dataset, k=5, show=False, reduction_alg=None):
     :return: None
     """
 
-    read = read_vowel_fold if dataset == 'vowel' else read_adult_fold
+    read = read_vowel_fold if dataset == 'vowel' else read_satimage_fold
     for i in range(10):
         x_train, y_train, x_test, y_test = read(i)
         if reduction_alg:
