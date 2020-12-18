@@ -21,7 +21,7 @@ def preprocess_vowel(train_data, test_data):
     # Save and remove label target
     y_train = vowel_df["Class"][:n].to_numpy()
     y_test = vowel_df["Class"][n:].to_numpy()
-    vowel_df.drop("Class", axis=1)
+    vowel_df=vowel_df.drop("Class", axis=1)
     # Normalize the data
     scaler = preprocessing.MinMaxScaler()
     vowel_df_scaled = scaler.fit_transform(vowel_df.values)
@@ -46,7 +46,7 @@ def preprocess_satimage(train_data, test_data):
     # Save and remove label target
     y_train = satimage_df["clase"][:n].to_numpy()
     y_test = satimage_df["clase"][n:].to_numpy()
-    satimage_df.drop("clase", axis=1)
+    satimage_df=satimage_df.drop("clase", axis=1)
     # Normalize the data
     scaler = preprocessing.MinMaxScaler()
     vowel_df_scaled = scaler.fit_transform(satimage_df.values)
