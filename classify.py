@@ -4,6 +4,16 @@ from knn import kNNAlgorithm
 from visualize import visualize
 import pandas as pd
 
+def loop_knn():
+    df=pd.DataFrame()
+    for dataset in ['vowel','satimage']:
+        for k in [1,3,5,7]:
+            for r in [1,1.5,2]:
+                for w in ['eq','mi','chi']:
+                    for v in ['maj','inv','shep']:
+                        df=pd.concat([df,classify(dataset, k, r, w, v)])
+    df.to_csv('results.csv')
+
 
 def classify(dataset, k=1, r=1, w='eq', v='maj', show=False, reduction_alg=None):
     """
