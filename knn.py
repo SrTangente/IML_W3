@@ -3,7 +3,7 @@ import numpy as np
 import time
 
 
-def knn(x_train,y_train, x_test,y_test, k, r, w, v):
+def kNNAlgorithm(x_train,y_train, x_test,y_test, k, r, w, v):
     start = time.time()
 
     n_classes = len(np.unique(y_train))
