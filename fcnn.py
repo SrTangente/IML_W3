@@ -1,5 +1,5 @@
 import numpy as np
-from  sklearn.metrics import euclidean_distances
+from sklearn.metrics import euclidean_distances as dist
 
 
 def centroid(class_x_train):
@@ -15,28 +15,40 @@ def fcnn(x_train, y_train):
     #x_train_aux[:, 1:] = x_train
     #x_train = x_train_aux
 
-    nearest = [None for p in x_train]
+    # 'nearest' is the dictionary that contains the nearest point within a subset (which can be a centroid, too) for each point
+    # 'labels' is the dictionary that contains the y_train label of a point (the centroid labels are added later)
+    nearest = {}
+    labels = {}
+    for idx, p in enumerate(x_train):
+        nearest[id(p)] = None
+        labels[id(p)] = y_train[idx]
+
     S = set()
-    centroids = [centroid(x_train[y_train == i][:, 1:]) for i in range(y_train.max())]
+
+    centroids = []
+    for i in range(y_train.max()):
+        cent = centroid(x_train[y_train == i])
+        centroids.append(cent)
+        # add the label of the centroid
+        labels[id(cent)] = i
+
+
     delta_S = set(centroids)
     while delta_S:
         S = S.union(delta_S)
-        rep = [None for p in S]
+        rep = {}
+        for p in S:
+            rep[id(p)] = None
         qs = [q for q in x_train if q not in S]  # x_train - S
         for q in qs:
             for p in delta_S:
-                if not nearest[q[0]]:
-                    nearest[iq] = p
-                elif nearest[q[0]] in centroids:
-                    euclidean_distances(nearest[q[0]][1:], q[1:]) > euclidean_distances(p[1:], q[1:]):
-            if y_train[iq] != y_train[nearest[iq]] and euclidean_distances(nearest[iq], q) < euclidean_distances(nearest[iq], rep[nearest[iq]]):
-                rep[nearest[iq]] = q
+                if not nearest[id(q)] or dist(nearest[id(q)], q) > dist(p, q):
+                    nearest[id(q)] = p
 
-        delta_S = []
+            if labels[id(q)] != labels[id(nearest[id(q)])] and dist(nearest[id(q)], q) < dist(nearest[id(q)], rep[id(nearest[id(q)])]):
+                rep[id(nearest[id(q)])] = q
+
+        delta_S = set()
         for p in S:
-            if rep[p]:
-                delta_S.append(rep[p])
-
-        # x_train - p => distancia entre p y cada sample de x_train
-
-        # guardarse indice del x_train al crear los subsets
+            if rep[id(p)]:
+                delta_S.add(rep[id(p)])
