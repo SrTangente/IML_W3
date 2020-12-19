@@ -83,7 +83,6 @@ def drop2(x_train, y_train, k):
 
 
 def drop3(x_train, y_train, k):
-    print(y_train.shape)
     knn = KNeighborsClassifier(k)
     knn.fit(x_train, y_train)
     filtered_x = []
