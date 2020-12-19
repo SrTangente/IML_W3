@@ -15,8 +15,8 @@ def drop2(x_train, y_train, k):
     def nearest_enemy_distance(point):
         point_y = point[-1]
         point_x = point[:-1]
-        distinct_x = x_train[np.where(y_train != point_y)]
         distinct_y = y_train[np.where(y_train != point_y)]
+        distinct_x = x_train[np.where(y_train != point_y)]
         knn = KNeighborsClassifier(1)
         knn.fit(distinct_x, distinct_y)
         distance, index = knn.kneighbors([point_x], 1)
@@ -53,7 +53,7 @@ def drop2(x_train, y_train, k):
 
         # compute instances correctly classified without p
         # first we remove p from the subset
-        subset_without_p = np.delete(subset, np.where(np.array_equal(subset, p)), axis=0)
+        subset_without_p = np.delete(subset, np.where((subset == p).all(axis=1)), axis=0)
         knn_without_p = KNeighborsClassifier(k + 1)
         knn_without_p.fit(subset_without_p[:, :-1], subset_without_p[:, -1])
         for a_i in associates[p_i]:
@@ -79,11 +79,11 @@ def drop2(x_train, y_train, k):
                 [associates_temp.append([a_i, nn]) for nn in nearests[a_i]]
 
         [associates[at[0]].add(at[1]) for at in associates_temp]
-
     return subset[:, :-1], subset[:, -1]
 
 
 def drop3(x_train, y_train, k):
+    print(y_train.shape)
     knn = KNeighborsClassifier(k)
     knn.fit(x_train, y_train)
     filtered_x = []
@@ -92,8 +92,8 @@ def drop3(x_train, y_train, k):
     for i in range(len(x_train)):
         x_i = x_train[i]
         y_i = y_train[i]
-        if knn.predict(x_i) == y_i:
+        if knn.predict([x_i])[0] == y_i:
             filtered_x.append(x_i)
             filtered_y.append(y_i)
     # apply drop2
-    return drop2(filtered_x, filtered_y, k)
+    return drop2(np.array(filtered_x), np.array(filtered_y), k)
