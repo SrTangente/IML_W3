@@ -52,3 +52,5 @@ def fcnn(x_train, y_train):
         for p in S:
             if rep[id(p)]:
                 delta_S.add(rep[id(p)])
+
+    return np.array(list(S))
