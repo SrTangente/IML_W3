@@ -6,32 +6,32 @@ def centroid(class_x_train):
     return np.mean(class_x_train, axis=1)
 
 
-def fcnn(x_train, y_train):
+def fcnn(x_train, y_train, k=1):
 
     # Add an index (to identify the point)
-    #ids = np.array(range(len(x_train)))
-    #x_train_aux = np.zeros(x_train.shape)
-    #x_train_aux[:, 0] = ids
-    #x_train_aux[:, 1:] = x_train
-    #x_train = x_train_aux
+    # ids = np.array(range(len(x_train)))
+    # x_train_aux = np.zeros(x_train.shape)
+    # x_train_aux[:, 0] = ids
+    # x_train_aux[:, 1:] = x_train
+    # x_train = x_train_aux
 
-    # 'nearest' is the dictionary that contains the nearest point within a subset (which can be a centroid, too) for each point
+    # 'nearest' is the dictionary that contains the nearest point (which can be a centroid, too) for each point
     # 'labels' is the dictionary that contains the y_train label of a point (the centroid labels are added later)
     nearest = {}
     labels = {}
     for idx, p in enumerate(x_train):
+        print(f"IDX:{idx}\tID:{id(p)}\t{p}")
         nearest[id(p)] = None
         labels[id(p)] = y_train[idx]
 
     S = set()
 
     centroids = []
-    for i in range(y_train.max()):
-        cent = centroid(x_train[y_train == i])
+    for i in range(int(y_train.max())):
+        cent = centroid(x_train[y_train == i][:, 1:])
         centroids.append(cent)
         # add the label of the centroid
         labels[id(cent)] = i
-
 
     delta_S = set(centroids)
     while delta_S:
@@ -53,4 +53,7 @@ def fcnn(x_train, y_train):
             if rep[id(p)]:
                 delta_S.add(rep[id(p)])
 
-    return np.array(list(S))
+    # Return final subset
+    x_train = np.array(list(S))
+    y_train = np.array([labels[id(p)] for p in S])
+    return x_train, y_train
