@@ -1,5 +1,6 @@
 from classify import *
 from drop import drop2, drop3
+from fcnn import fcnn
 
 classify('vowel', k=1, r=1.5, w='mi', v='maj', reduction_alg=drop2, show=False)
 
@@ -15,3 +16,6 @@ vow = results[results["dataset"]=='vowel']
 vow_results = vow.groupby(['dataset', 'k', 'r', 'w', 'v']).mean()
 print('Best combination for vowel')
 print(vow_results.iloc[np.argmax(vow_results["acc"])])
+
+#classify('vowel', k=5, show=False, reduction_alg=drop3)
+classify('vowel', k=5, show=False, reduction_alg=fcnn)
