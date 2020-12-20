@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.metrics import euclidean_distances as dist
 
 
-def menn(x_train, y_train, k=1):
+def menn(x_train, y_train, k=1, r=1, w=1, v=1):
 
     delete_from_train = [False for _ in range(len(x_train))]
 

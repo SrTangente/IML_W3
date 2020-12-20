@@ -6,7 +6,7 @@ def centroid(class_x_train):
     return np.mean(class_x_train, axis=1)
 
 
-def fcnn(x_train, y_train, k=1):
+def fcnn(x_train, y_train, k, r, w, v):
 
     # Add an index (to identify the point)
     # ids = np.array(range(len(x_train)))
