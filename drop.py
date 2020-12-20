@@ -36,6 +36,7 @@ def drop2(x_train, y_train, k, r, w, v):
     subset = np.array(subset)
 
     for p_i in range(n):
+        print(p_i)
         p = original[p_i, :]
         with_ = 0
         without_ = 0
@@ -82,11 +83,12 @@ def drop2(x_train, y_train, k, r, w, v):
 
 
 def drop3(x_train, y_train, k, r, w, v):
-    print('Initial length (drop3): ')
+    print('Initial length (drop3): ', len(x_train))
     filtered_x = []
     filtered_y = []
     # remove the points that are not correctly classified
     for i in range(len(x_train)):
+        print(i)
         x_i = x_train[i]
         y_i = y_train[i]
         distance, index, prds = kNNeighbours(x_train, y_train, [x_i], k, r, w, v)
