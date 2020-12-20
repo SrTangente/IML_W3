@@ -30,7 +30,7 @@ def classify(dataset, k=1, r=1, w='eq', v='maj', show=False, reduction_alg=None)
         x_train, y_train, x_test, y_test = read(i)
         if reduction_alg:
             n0=x_train.shape[0]
-            x_train, y_train = reduction_alg(x_train, y_train, k)
+            x_train, y_train = reduction_alg(x_train, y_train, k, r, w, v)
             storage=x_train.shape[0]/n0
         else:
             storage=1
