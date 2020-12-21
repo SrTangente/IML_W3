@@ -36,7 +36,6 @@ def drop2(x_train, y_train, k, r, w, v):
     subset = np.array(subset)
 
     for p_i in range(n):
-        print(p_i)
         p = original[p_i, :]
         with_ = 0
         without_ = 0
