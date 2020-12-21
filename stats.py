@@ -10,11 +10,11 @@ results = pd.read_csv('results.csv')
 def stats():
     sat_k = results[(results["dataset"]=='satimage') &  (results["r"]==2) & (results["v"]=='maj') & (results["w"]=='eq')]
     sat_k_results = sat_k.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
-    sat_r = results[(results["dataset"]=='satimage') & (results["k"]==3)& (results["v"]=='maj') & (results["w"]=='eq')]
+    sat_r = results[(results["dataset"]=='satimage') & (results["k"]==5)& (results["v"]=='maj') & (results["w"]=='eq')]
     sat_r_results = sat_r.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
-    sat_v = results[(results["dataset"]=='satimage') & (results["k"]==3) & (results["r"]==2) &  (results["w"]=='eq')]
+    sat_v = results[(results["dataset"]=='satimage') & (results["k"]==5) & (results["r"]==2) &  (results["w"]=='eq')]
     sat_v_results = sat_v.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
-    sat_w = results[(results["dataset"]=='satimage') & (results["k"]==3)& (results["r"]==2) & (results["v"]=='maj') ]
+    sat_w = results[(results["dataset"]=='satimage') & (results["k"]==5)& (results["r"]==2) & (results["v"]=='maj') ]
     sat_w_results = sat_w.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
     print('k results')
     print(sat_k_results['acc'].max())
@@ -32,11 +32,11 @@ def stats():
 
     vowel_k = results[(results["dataset"]=='vowel') &  (results["r"]==2) & (results["v"]=='maj') & (results["w"]=='eq')]
     vowel_k_results = vowel_k.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
-    vowel_r = results[(results["dataset"]=='vowel') & (results["k"]==3)& (results["v"]=='maj') & (results["w"]=='eq')]
+    vowel_r = results[(results["dataset"]=='vowel') & (results["k"]==5)& (results["v"]=='maj') & (results["w"]=='eq')]
     vowel_r_results = vowel_r.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
-    vowel_v = results[(results["dataset"]=='vowel') & (results["k"]==3) & (results["r"]==2) &  (results["w"]=='eq')]
+    vowel_v = results[(results["dataset"]=='vowel') & (results["k"]==5) & (results["r"]==2) &  (results["w"]=='eq')]
     vowel_v_results = vowel_v.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
-    vowel_w = results[(results["dataset"]=='vowel') & (results["k"]==3)& (results["r"]==2) & (results["v"]=='maj') ]
+    vowel_w = results[(results["dataset"]=='vowel') & (results["k"]==5)& (results["r"]==2) & (results["v"]=='maj') ]
     vowel_w_results = vowel_w.groupby(['dataset', 'k', 'r', 'w', 'v'],as_index=False).mean()
 
     print('k results')
