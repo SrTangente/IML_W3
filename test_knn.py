@@ -1,4 +1,4 @@
 import read_datasets
-from classify import classify
+from classify import reductionKNNAlgorithm
 
-a=classify('vowel',k=1)
+a=reductionKNNAlgorithm('vowel', k=1)
