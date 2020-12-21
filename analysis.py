@@ -116,7 +116,7 @@ plt.bar([i+0.25*width for i in indices], menn_v_values, width=width, color='slat
 plt.bar([i+0.5*width for i in indices], fcnn_v_values, width=width, color='firebrick', label='Fcnn')
 plt.bar([i+0.75*width for i in indices], drop3_v_values, width=width, color='limegreen', label='Drop3')
 
-plt.xticks(indices, ['Storage', 'Efficiency', 'Accuracy'])
+plt.xticks(indices, ['Storage', 'Time', 'Accuracy'])
 plt.legend()
 plt.show()
 
@@ -132,6 +132,6 @@ plt.bar([i+0.25*width for i in indices], menn_s_values, width=width, color='slat
 plt.bar([i+0.5*width for i in indices], fcnn_s_values, width=width, color='firebrick', label='Fcnn')
 plt.bar([i+0.75*width for i in indices], drop3_s_values, width=width, color='limegreen', label='Drop3')
 
-plt.xticks(indices, ['Storage', 'Efficiency', 'Accuracy'])
+plt.xticks(indices, ['Storage', 'Time', 'Accuracy'])
 plt.legend()
 plt.show()
