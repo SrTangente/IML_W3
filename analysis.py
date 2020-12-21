@@ -112,9 +112,9 @@ width = 0.8
 indices = [1, 3, 5]
 plt.title('Vowel dataset results')
 plt.bar(indices, [1, 1, vow_acc], width=width, color='black', label='Without reduction')
-plt.bar([i+0.25*width for i in indices], menn_v_values, width=width, color='blue', label='Menn')
-plt.bar([i+0.5*width for i in indices], fcnn_v_values, width=width, color='red', label='Fcnn')
-plt.bar([i+0.75*width for i in indices], drop3_v_values, width=width, color='yellow', label='Drop3')
+plt.bar([i+0.25*width for i in indices], menn_v_values, width=width, color='slateblue', label='Menn')
+plt.bar([i+0.5*width for i in indices], fcnn_v_values, width=width, color='firebrick', label='Fcnn')
+plt.bar([i+0.75*width for i in indices], drop3_v_values, width=width, color='limegreen', label='Drop3')
 
 plt.xticks(indices, ['Storage', 'Efficiency', 'Accuracy'])
 plt.legend()
@@ -128,9 +128,9 @@ width = 0.8
 indices = [1, 3, 5]
 plt.title('Satimage dataset results')
 plt.bar(indices, [1, 1, sat_acc], width=width, color='black', label='Without reduction')
-plt.bar([i+0.25*width for i in indices], menn_s_values, width=width, color='blue', label='Menn')
-plt.bar([i+0.5*width for i in indices], fcnn_s_values, width=width, color='red', label='Fcnn')
-plt.bar([i+0.75*width for i in indices], drop3_s_values, width=width, color='yellow', label='Drop3')
+plt.bar([i+0.25*width for i in indices], menn_s_values, width=width, color='slateblue', label='Menn')
+plt.bar([i+0.5*width for i in indices], fcnn_s_values, width=width, color='firebrick', label='Fcnn')
+plt.bar([i+0.75*width for i in indices], drop3_s_values, width=width, color='limegreen', label='Drop3')
 
 plt.xticks(indices, ['Storage', 'Efficiency', 'Accuracy'])
 plt.legend()
