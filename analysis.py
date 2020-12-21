@@ -89,7 +89,9 @@ print('Storage ratio: ', best_s_fcnn_row["storage"])
 
 print('Vowel drop3 results')
 vowel_drop3 = pd.read_csv('vowel_drop3.csv')
-best_v_drop3_row = vowel_drop3.mean()
+vowel_drop3 = vowel_drop3.groupby(['k']).mean()
+print(vowel_drop3)
+best_v_drop3_row = vowel_menn.iloc[np.argmax(vowel_drop3["acc"])]
 print(best_v_drop3_row)
 print('Accuracy: ', best_v_drop3_row["acc"] / vow_acc)
 print('Efficiency ratio: ', best_v_drop3_row["eff"] / vow_eff)
@@ -97,8 +99,9 @@ print('Storage ratio: ', best_v_drop3_row["storage"])
 
 print('Satimage drop3 results')
 satimage_drop3 = pd.read_csv('satimage_drop3.csv')
-best_s_drop3_row = satimage_drop3.mean()
-print(best_s_drop3_row)
+satimage_drop3 = satimage_drop3.groupby(['k']).mean()
+print(satimage_drop3)
+best_s_drop3_row = satimage_drop3.iloc[np.argmax(satimage_drop3["acc"])]
 print('Accuracy: ', best_s_drop3_row["acc"] / sat_acc)
 print('Efficiency ratio: ', best_s_drop3_row["eff"] / sat_eff)
 print('Storage ratio: ', best_s_drop3_row["storage"])
